@@ -1,4 +1,55 @@
-tp6:
+tp6:#include <stdio.h>
+#include <stdlib.h>
+
+struct produit {
+    int code;
+    char nom[50];
+    float prix;
+    int quantite;
+};
+
+int main() {
+    int i, code, quantite;
+    float paiment, retenue;
+    struct produit produits[5] = {
+        {1, "Cannete", 70, 10},
+        {2, "Gateau", 30, 10},
+        {3, "Ju", 50, 20},
+        {4, "Eau", 30, 20},
+        {5, "Chips", 40, 15}
+    };
+
+    printf("Listes des produits:\n");
+    for (i = 0; i < 5; i++) {
+        printf("%d. %s - %.2f da\n", produits[i].code, produits[i].nom, produits[i].prix);
+    }
+
+    printf("Entrer le code du produit: ");
+    scanf("%d", &code);
+
+    for (i = 0; i < 5; i++) {
+        if (produits[i].code == code) {
+            printf("Entrer quantite: ");
+            scanf("%d", &quantite);
+            if (quantite <= produits[i].quantite) {
+                printf("Entrer votre paiment: ");
+                scanf("%f", &paiment);
+                if (paiment >= produits[i].prix * quantite) {
+                    retenue = paiment - produits[i].prix * quantite;
+                    printf("vous avez pris %d %s. retenue: %.2f da\n", quantite, produits[i].nom, retenue);
+                    produits[i].quantite -= quantite;
+                } else {
+                    printf("paiment inssufisant.\n");
+                }
+            } else {
+                printf("quantite inssufisante.\n");
+            }
+            break;
+        }
+    }
+
+    return 0;
+}
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,16 +64,16 @@ int main() {
     int i, code, quantite;
     float paiment, retenue;
     struct produit produits[5] = {
-        {1, "Cannete", 1.5, 10},
-        {2, "Gateau", 1.5, 10},
-        {3, "Ju", 1.5, 20},
-        {4, "Eau", 1, 20},
-        {5, "Chips", 1.25, 15}
+        {1, "Cannete", 70, 10},
+        {2, "Gateau", 30, 10},
+        {3, "Ju", 50, 20},
+        {4, "Eau", 30, 20},
+        {5, "Chips", 40, 15}
     };
 
     printf("Listes des produits:\n");
     for (i = 0; i < 5; i++) {
-        printf("%d. %s - $%.2f\n", produits[i].code, produits[i].nom, produits[i].prix);
+        printf("%d. %s - %.2f da\n", produits[i].code, produits[i].nom, produits[i].prix);
     }
 
     printf("Entrer le code du produit: ");
@@ -33,11 +84,11 @@ int main() {
             printf("Entrer quantite: ");
             scanf("%d", &quantite);
             if (quantite <= produits[i].quantite) {
-                printf("Entrer votre paiment: $");
+                printf("Entrer votre paiment: ");
                 scanf("%f", &paiment);
                 if (paiment >= produits[i].prix * quantite) {
                     retenue = paiment - produits[i].prix * quantite;
-                    printf("vous avez pris %d %s. retenue: $%.2f\n", quantite, produits[i].nom, retenue);
+                    printf("vous avez pris %d %s. retenue: %.2f da\n", quantite, produits[i].nom, retenue);
                     produits[i].quantite -= quantite;
                 } else {
                     printf("paiment inssufisant.\n");
